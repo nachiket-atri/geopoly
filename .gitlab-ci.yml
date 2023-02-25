@@ -1,0 +1,21 @@
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  stage: build
+  script:
+    - flutter packages get
+    - flutter build apk
+
+test:
+  stage: test
+  script:
+    - flutter test
+
+deploy:
+  stage: deploy
+  script:
+    - flutter build appbundle
+    - firebase appdistribution:release my-app-bundle.aab --token $FIREBASE_TOKEN
